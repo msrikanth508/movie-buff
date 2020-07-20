@@ -50,7 +50,7 @@
   "scripts": {
     "start": "npm run prod",
     "build": "NODE_ENV=production npm-run-all clean transpile move:index",
-    "prod": "netlify-lambda build dist-server ",
+    "prod": "npm-run-all build && netlify-lambda build dist-server",
     "dev-serve": "node dist-server/bin/www.js",
     "dev": "NODE_ENV=development npm-run-all build dev-serve",
     "transpile": "babel ./server --out-dir dist-server",
