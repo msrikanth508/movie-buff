@@ -25,6 +25,7 @@
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/runtime": "^7.10.5",
+    "copyfiles": "^2.3.0",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
@@ -48,12 +49,13 @@
   },
   "scripts": {
     "start": "npm run prod",
-    "build": "NODE_ENV=production npm-run-all clean transpile",
-    "prod": "netlify-lambda build dist-server",
+    "build": "NODE_ENV=production npm-run-all clean transpile move:index",
+    "prod": "netlify-lambda build dist-server ",
     "dev-serve": "node dist-server/bin/www.js",
     "dev": "NODE_ENV=development npm-run-all build dev-serve",
     "transpile": "babel ./server --out-dir dist-server",
-    "clean": "rimraf dist-server",
+    "move:index": "copyfiles -f ./server/index.html dist-server",
+    "clean": "rimraf dist-server functions",
     "watch:dev": "nodemon",
     "test": "jest"
   },

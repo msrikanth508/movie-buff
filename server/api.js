@@ -37,7 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/.netlify/functions/server', indexRouter);
+app.use('/.netlify/functions/api', indexRouter);
 app.handler = serverless(app);
 
 export default app;
