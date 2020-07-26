@@ -37,7 +37,7 @@ export default function () {
       <Container>
         <Toolbar disableGutters>
           <Link to="/" className={classes.link}>
-            <img src="/media/popcorn.png" className={classes.logo} />
+            <img src="/media/popcorn.png" className={classes.logo} alt="logo" />
             <Typography variant="h6" color="inherit" noWrap>
               Time Pass
             </Typography>
