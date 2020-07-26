@@ -1,9 +1,10 @@
 import express from 'express';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import serverless from 'serverless-http';
-import indexRouter from './routes/index';
+import cors from 'cors';
+import movieRoutes from './routes/movies';
+import tvRoutes from './routes/tv';
 
 const app = express();
 
@@ -23,6 +24,8 @@ const getQueryParams = (query) =>
     return acc;
   }, {});
 
+app.use(cors());
+
 app.use(function (req, res, next) {
   if (req.method === 'GET') {
     req.query = {
@@ -37,7 +40,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/.netlify/functions/api', indexRouter);
+app.use('/.netlify/functions/api/movies/', movieRoutes);
+app.use('/.netlify/functions/api/tv/', tvRoutes);
 
 module.exports = app;
 module.exports.handler = serverless(app);

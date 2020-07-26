@@ -4,3 +4,4 @@ dist-server
 node_modules
 functions
 .DS_Store
+dist
