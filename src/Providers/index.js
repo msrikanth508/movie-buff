@@ -11,8 +11,8 @@ export default function Provider(props) {
     }));
   }
   const [state, setState] = useState({
-    movies: {},
-    tv: {},
+    movies: { genres: null },
+    tv: { genres: null },
     setAppLanguage: setLanguage,
     lang: 'en-EN',
     region: 'DE',

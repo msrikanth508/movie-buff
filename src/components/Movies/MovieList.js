@@ -102,7 +102,7 @@ export default function MovieItems({ moviesList, genres }) {
                       {movie.title}
                     </Typography>
                     <Box component="p" m={0} mt={1} color="textSecondary">
-                      {getGenreNames(genres, movie.genre_ids)}
+                      {genres && getGenreNames(genres, movie.genre_ids)}
                     </Box>
                   </div>
                 </Box>

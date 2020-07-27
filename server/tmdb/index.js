@@ -83,3 +83,9 @@ export class TVTmdb {
     return tmdbData.get(this.paths.trending, params);
   }
 }
+
+export class Tmdb {
+  search(params) {
+    return tmdbData.get('/search/multi', params);
+  }
+}

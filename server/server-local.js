@@ -4,6 +4,7 @@ import logger from 'morgan';
 import cors from 'cors';
 import movieRoutes from './routes/movies';
 import tvRoutes from './routes/tv';
+import generalRoutes from './routes/general';
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use('/api/', generalRoutes);
 app.use('/api/movies/', movieRoutes);
 app.use('/api/tv/', tvRoutes);
 

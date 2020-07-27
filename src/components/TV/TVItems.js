@@ -101,7 +101,7 @@ export default function TVItems({ tvList, genres }) {
                       {tv.name}
                     </Typography>
                     <Box component="p" m={0} mt={1} color="textSecondary">
-                      {getGenreNames(genres, tv.genre_ids)}
+                      {genres && getGenreNames(genres, tv.genre_ids)}
                     </Box>
                   </div>
                 </Box>
