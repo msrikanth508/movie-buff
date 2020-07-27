@@ -1,19 +1,21 @@
 import loadable from '@loadable/component';
 
-const MoviesList = loadable(() => import('./components/MovieItem'));
-const MovieDetails = loadable(() => import('./components/MovieDetails'));
-const TVDetails = loadable(() => import('./components/TVDetails'));
-const TVList = loadable(() => import('./components/TV'));
+const Home = loadable(() => import('./components/Home'));
+const Movies = loadable(() => import('./components/Movies'));
+const MovieDetails = loadable(() => import('./components/Movies/Details'));
+
+const TVDetails = loadable(() => import('./components/TV/Details'));
+const TV = loadable(() => import('./components/TV'));
 
 export const routes = [
   {
     path: '/',
     exact: true,
-    component: MoviesList,
+    component: Home,
   },
   {
     path: '/movies/:type?/:pageNumber?',
-    component: MoviesList,
+    component: Movies,
     exact: true,
   },
   {
@@ -23,7 +25,7 @@ export const routes = [
   },
   {
     path: '/tvs/:type?/:pageNumber?',
-    component: TVList,
+    component: TV,
     exact: true,
   },
   {

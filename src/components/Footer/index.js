@@ -23,15 +23,15 @@ export default function () {
           color="textSecondary"
           component="p"
         >
-          The application is using{' '}
+          The application uses open source data provided by{' '}
           <a
             href="https://www.themoviedb.org/"
             rel="noopener noreferrer"
             target="_blank"
           >
             TMDB
-          </a>{' '}
-          for querying the data.
+          </a>
+          .
         </Typography>
         <Typography variant="body2" color="textSecondary" align="center">
           {'Copyright © '}

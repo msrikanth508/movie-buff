@@ -8,7 +8,7 @@ export default function ({ count = 12 }) {
   return (
     <Grid container spacing={4}>
       {items.map((_, index) => (
-        <Grid item key={index} xs={12} sm={3} md={3}>
+        <Grid item key={index} xs={6} sm={4} md={2}>
           <Skeleton animation="false" variant="rect" height={275} />
           <Skeleton variant="text" width="80%" />
           <Skeleton variant="text" width="60%" />

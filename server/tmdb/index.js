@@ -9,6 +9,7 @@ export class MoviesTmdb {
       upcoming: '/movie/upcoming',
       genre: '/genre/movie/list',
       details: '/movie',
+      trending: '/trending/movie/week',
     };
   }
 
@@ -36,6 +37,9 @@ export class MoviesTmdb {
   recommendations(params, movieId) {
     return tmdbData.get(`/movie/${movieId}/recommendations`, params);
   }
+  trending(params) {
+    return tmdbData.get(this.paths.trending, params);
+  }
 }
 
 export class TVTmdb {
@@ -47,6 +51,7 @@ export class TVTmdb {
       air: '/tv/on_the_air',
       genre: '/genre/tv/list',
       details: '/tv',
+      trending: '/trending/tv/week',
     };
   }
 
@@ -73,5 +78,8 @@ export class TVTmdb {
   }
   recommendations(params, tvId) {
     return tmdbData.get(`/tv/${tvId}/recommendations`, params);
+  }
+  trending(params) {
+    return tmdbData.get(this.paths.trending, params);
   }
 }

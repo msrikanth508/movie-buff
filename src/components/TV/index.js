@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppContext } from '../../Providers';
 import axios from '../../data';
 import TVItems from './TVItems';
+import SkeletonList from '../Skeleton/List';
 
 const useStyles = makeStyles((theme) => ({
   btnGroup: {
@@ -18,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const btns = [
+  {
+    name: 'Trending',
+    value: 'trending',
+  },
   {
     name: 'Popular',
     value: 'popular',
@@ -35,7 +40,7 @@ const btns = [
 export default function MovieList(props) {
   const params = useParams();
   const pageNumber = parseInt(params.pageNumber || 1, 10);
-  const movieType = params.type || 'popular';
+  const movieType = params.type || 'trending';
 
   const [moviesList, setMoviesList] = React.useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -76,7 +81,7 @@ export default function MovieList(props) {
   }, [pageNumber, movieType]);
 
   if (moviesList.length === 0) {
-    return null;
+    return <SkeletonList />;
   }
 
   return (

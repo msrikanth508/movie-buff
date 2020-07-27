@@ -85,4 +85,14 @@ router.get('/recommendations/:id', async (req, res, next) => {
   }
 });
 
+router.get('/trending', async (req, res, next) => {
+  try {
+    const data = await moviesTmdb.trending(req.query);
+    res.json(data);
+  } catch (e) {
+    res.send(e);
+    next();
+  }
+});
+
 export default router;

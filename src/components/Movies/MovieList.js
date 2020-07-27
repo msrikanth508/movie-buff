@@ -8,27 +8,38 @@ import {
   Grid,
   Zoom,
   Box,
-  CircularProgress,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import LinkedCameraOutlinedIcon from '@material-ui/icons/LinkedCameraOutlined';
 
 const useStyles = makeStyles((theme) => ({
   card: {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
   },
   cardMedia: {
-    height: '275px',
+    height: '220px',
+  },
+  cardEmpty: {
+    width: '100%',
+    height: '220px',
+    backgroundColor: theme.palette.text.secondary,
+    borderRadius: '4px',
+    opacity: 0.5,
   },
   cardContent: {
     flexGrow: 1,
+    padding: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   rating: {
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'green',
+    padding: theme.spacing(0.5),
+    right: 0,
   },
   progress: {
     position: 'relative',
@@ -39,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
     '-webkit-box-orient': 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    lineHeight: 1,
+    fontSize: '1.1rem',
   },
   link: {
     textDecoration: 'none',
@@ -54,6 +67,7 @@ const getGenreNames = (genresList, ids) =>
       acc.push(genresList[id]);
       return acc;
     }, [])
+    .slice(0, 3)
     .join(', ');
 
 export default function MovieItems({ moviesList, genres }) {
@@ -62,15 +76,19 @@ export default function MovieItems({ moviesList, genres }) {
   return (
     <>
       {moviesList.map((movie) => (
-        <Grid item key={movie.id} xs={12} sm={4} md={3}>
+        <Grid item key={movie.id} xs={6} sm={4} md={2}>
           <Link to={`/movie/details/${movie.id}`} className={classes.link}>
             <Card className={classes.card}>
               <Zoom in timeout={500}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-                  title={movie.title}
-                ></CardMedia>
+                {movie.poster_path ? (
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+                    title={movie.title}
+                  />
+                ) : (
+                  <LinkedCameraOutlinedIcon className={classes.cardEmpty} />
+                )}
               </Zoom>
               <CardContent className={classes.cardContent}>
                 <Box display="flex" justifyContent="space-between">
@@ -79,37 +97,19 @@ export default function MovieItems({ moviesList, genres }) {
                       variant="h6"
                       component="h2"
                       className={classes.ellipsis}
+                      title={movie.title}
                     >
                       {movie.title}
                     </Typography>
-                    <Box component="p" m={0} color="textSecondary">
+                    <Box component="p" m={0} mt={1} color="textSecondary">
                       {getGenreNames(genres, movie.genre_ids)}
                     </Box>
                   </div>
-                  <Box
-                    component="span"
-                    display="flex"
-                    alignItems="center"
-                    pl={2}
-                  >
-                    <Box className={classes.progress}>
-                      <CircularProgress
-                        variant="determinate"
-                        value={movie.vote_average * 10}
-                        size={50}
-                        className={classes.circle}
-                      />
-                      <Typography
-                        variant="subtitle2"
-                        component="span"
-                        className={classes.rating}
-                      >
-                        {movie.vote_average.toFixed(1)}
-                      </Typography>
-                    </Box>
-                  </Box>
                 </Box>
               </CardContent>
+              <Box className={classes.rating}>
+                {movie.vote_average.toFixed(1)}
+              </Box>
             </Card>
           </Link>
         </Grid>

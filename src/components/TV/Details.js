@@ -14,9 +14,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppContext } from '../../Providers';
 import axios from '../../data';
 import Cast from '../Cast';
-import TVItems from '../TV/TVItems';
+import TVItems from './TVItems';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MovieList(props) {
+export default function MovieList() {
   const params = useParams();
   const tvId = params.tvId;
   const classes = useStyles();

@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppContext } from '../../Providers';
 import axios from '../../data';
 import Cast from '../Cast';
-import MovieItems from '../MovieItem/MovieItems';
+import MovieItems from './MovieList';
 import SkeletonDetails from '../Skeleton/Details';
 
 const useStyles = makeStyles(() => ({
