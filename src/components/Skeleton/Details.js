@@ -21,15 +21,15 @@ export default function () {
         </Box>
         <Box mb={4}>
           <Skeleton variant="text" width="10%" />
-          <Skeleton variant="text" width="5%" />
+          <Skeleton variant="text" width="60%" />
         </Box>
         <Box mb={4}>
           <Skeleton variant="text" width="10%" />
-          <Skeleton variant="text" width="5%" />
+          <Skeleton variant="text" width="50%" />
         </Box>
         <Box mb={4}>
           <Skeleton variant="text" width="10%" />
-          <Skeleton variant="text" width="5%" />
+          <Skeleton variant="text" width="50%" />
         </Box>
       </Grid>
       <List count={4} />

@@ -2,6 +2,8 @@ import React from 'react';
 import { Grid, Typography, Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import Trending from './Trending';
 
@@ -21,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function () {
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -28,7 +32,7 @@ export default function () {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={4}>
+      <Grid container spacing={matches ? 2 : 1}>
         <Grid item xs={12}>
           <Box display="flex" flexDirection="column">
             <Box display="flex" justifyContent="space-between">
@@ -54,7 +58,7 @@ export default function () {
         </Grid>
 
         <Grid item xs={12}>
-          <Box display="flex" flexDirection="column">
+          <Box display="flex" flexDirection="column" mt={2}>
             <Box display="flex" justifyContent="space-between">
               <Typography component="h2" variant="h5">
                 Trending TV

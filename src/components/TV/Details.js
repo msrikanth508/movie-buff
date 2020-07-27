@@ -7,14 +7,16 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core';
-
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import { AppContext } from '../../Providers';
 import axios from '../../data';
 import Cast from '../Cast';
 import TVItems from './TVItems';
+import SkeletonDetails from '../Skeleton/Details';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -32,6 +34,8 @@ export default function MovieList() {
   const [movieDetails, setMovieDetails] = useState(null);
   const [castList, setCastList] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const {
     movies: { genres },
@@ -42,6 +46,7 @@ export default function MovieList() {
   }, [tvId]);
 
   React.useEffect(() => {
+    setMovieDetails(null);
     async function getMoviesDetails() {
       const { data } = await axios.get(`/tv/details/${tvId}`);
       const { data: creditsData } = await axios.get(`/tv/credits/${tvId}`);
@@ -58,12 +63,12 @@ export default function MovieList() {
   }, [tvId]);
 
   if (!movieDetails) {
-    return null;
+    return <SkeletonDetails />;
   }
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={4}>
+      <Grid container spacing={matches ? 2 : 1}>
         <Grid item xs={12} sm={6} md={3}>
           <Zoom in timeout={600}>
             <>
@@ -206,7 +211,7 @@ export default function MovieList() {
           Recommendations
         </Typography>
       </Box>
-      <Grid container spacing={4}>
+      <Grid container spacing={matches ? 2 : 1}>
         <TVItems tvList={recommendations} genres={genres} />
       </Grid>
     </div>

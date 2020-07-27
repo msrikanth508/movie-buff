@@ -3,6 +3,8 @@ import { Grid, ButtonGroup, Button } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import { AppContext } from '../../Providers';
 import axios from '../../data';
@@ -41,6 +43,8 @@ export default function MovieList(props) {
   const params = useParams();
   const pageNumber = parseInt(params.pageNumber || 1, 10);
   const movieType = params.type || 'trending';
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [moviesList, setMoviesList] = React.useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -65,6 +69,7 @@ export default function MovieList(props) {
 
   React.useEffect(() => {
     async function getMoviesList() {
+      setMoviesList([]);
       const {
         data: { results, total_pages },
       } = await axios.get(`/movies/${movieType}`, {
@@ -113,7 +118,7 @@ export default function MovieList(props) {
           })}
         </ButtonGroup>
       </Grid>
-      <Grid container spacing={4}>
+      <Grid container spacing={matches ? 2 : 1}>
         <MovieItems moviesList={moviesList} genres={genres} />
       </Grid>
       <Grid container direction="row" justify="center" alignItems="center">

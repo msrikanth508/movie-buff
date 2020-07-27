@@ -20,38 +20,36 @@ export default function Provider(props) {
 
   useEffect(() => {
     async function getData() {
-      const {
-        data: { genres: movieGenres },
-      } = await axios.get('/movies/genre');
-      const {
-        data: { genres: tvGenres },
-      } = await axios.get('/tv/genre');
+      try {
+        const {
+          data: { genres: movieGenres },
+        } = await axios.get('/movies/genre');
+        const {
+          data: { genres: tvGenres },
+        } = await axios.get('/tv/genre');
 
-      const g1 = movieGenres.reduce((acc, item) => {
-        acc[item.id] = item.name;
-        return acc;
-      }, {});
+        const g1 = movieGenres.reduce((acc, item) => {
+          acc[item.id] = item.name;
+          return acc;
+        }, {});
 
-      const g2 = tvGenres.reduce((acc, item) => {
-        acc[item.id] = item.name;
-        return acc;
-      }, {});
+        const g2 = tvGenres.reduce((acc, item) => {
+          acc[item.id] = item.name;
+          return acc;
+        }, {});
 
-      setState((prevState) => {
-        const t = { ...prevState };
-        t.movies.genres = g1;
-        t.tv.genres = g2;
-        return t;
-      });
+        setState((prevState) => {
+          const t = { ...prevState };
+          t.movies.genres = g1;
+          t.tv.genres = g2;
+          return t;
+        });
+      } catch (e) {}
     }
     getData();
   }, []);
 
-  if (state.movies.genres) {
-    return (
-      <AppContext.Provider value={state}>{props.children}</AppContext.Provider>
-    );
-  }
-
-  return null;
+  return (
+    <AppContext.Provider value={state}>{props.children}</AppContext.Provider>
+  );
 }

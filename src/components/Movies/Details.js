@@ -10,12 +10,15 @@ import {
 
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import { AppContext } from '../../Providers';
 import axios from '../../data';
 import Cast from '../Cast';
 import MovieItems from './MovieList';
 import SkeletonDetails from '../Skeleton/Details';
+import { formatCurrency, durationInHours } from '../utils';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -26,25 +29,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const durationInHours = (duration) => {
-  if (duration < 60) {
-    return `00:${duration}`;
-  } else {
-    var hours = Math.floor(duration / 60);
-    var minutes = duration % 60;
-
-    hours = hours < 10 ? `0${hours}` : hours;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-    return `${hours}:${minutes}`;
-  }
-};
 export default function MovieList() {
   const params = useParams();
   const movieId = params.movieId;
   const classes = useStyles();
-  const [movieDetails, setMovieDetails] = useState();
+  const [movieDetails, setMovieDetails] = useState(null);
   const [castList, setCastList] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const {
     movies: { genres },
@@ -52,6 +45,7 @@ export default function MovieList() {
 
   React.useEffect(() => {
     async function getMoviesDetails() {
+      setMovieDetails(null);
       const { data } = await axios.get(`/movies/details/${movieId}`);
       const { data: creditsData } = await axios.get(
         `/movies/credits/${movieId}`
@@ -78,7 +72,7 @@ export default function MovieList() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={4}>
+      <Grid container spacing={matches ? 2 : 1}>
         <Grid item xs={12} sm={6} md={3}>
           <Zoom in timeout={600}>
             <>
@@ -87,9 +81,11 @@ export default function MovieList() {
                 image={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
                 title={movieDetails.title}
               />
-              <Box my={3} fontStyle="italic">
-                <Typography>{movieDetails.tagline}</Typography>
-              </Box>
+              {matches && (
+                <Box my={3} fontStyle="italic">
+                  <Typography>{movieDetails.tagline}</Typography>
+                </Box>
+              )}
             </>
           </Zoom>
         </Grid>
@@ -173,7 +169,7 @@ export default function MovieList() {
               component="h2"
               color="textSecondary"
             >
-              $ {movieDetails.budget}
+              {formatCurrency(movieDetails.budget)}
             </Typography>
           </Box>
           <Box mb={1}>
@@ -223,7 +219,7 @@ export default function MovieList() {
           Recommendations
         </Typography>
       </Box>
-      <Grid container spacing={4}>
+      <Grid container spacing={matches ? 2 : 1}>
         <MovieItems moviesList={recommendations} genres={genres} />
       </Grid>
     </div>

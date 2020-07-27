@@ -9,6 +9,8 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -42,54 +44,58 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const settings = {
+  dots: false,
+  speed: 500,
+  lazyLoad: true,
+  infinite: false,
+
+  slidesToShow: 6,
+  slidesToScroll: 6,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        dots: false,
+        speed: 500,
+        lazyLoad: true,
+        infinite: false,
+
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        dots: false,
+        speed: 500,
+        lazyLoad: true,
+        infinite: false,
+
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 320,
+      settings: {
+        dots: false,
+        speed: 500,
+        lazyLoad: true,
+        infinite: false,
+
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
+
 export default function (props) {
-  const settings = {
-    dots: false,
-    speed: 500,
-    lazyLoad: true,
-    infinite: false,
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
-    slidesToShow: 6,
-    slidesToScroll: 6,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          dots: false,
-          speed: 500,
-          lazyLoad: true,
-          infinite: false,
-
-          slidesToShow: 4,
-          slidesToScroll: 4,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          dots: false,
-          speed: 500,
-          lazyLoad: true,
-          infinite: false,
-
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 320,
-        settings: {
-          dots: false,
-          speed: 500,
-          lazyLoad: true,
-          infinite: false,
-
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   const classes = useStyles();
 
   return (
@@ -100,7 +106,7 @@ export default function (props) {
       <Slider {...settings}>
         {props.list.map((list) => {
           return (
-            <Box p={2}>
+            <Box p={matches ? 2 : 1}>
               <Card className={classes.cardRoot}>
                 {list.profile_path ? (
                   <CardMedia
