@@ -19,13 +19,21 @@ import Cast from '../Cast';
 import MovieItems from './MovieList';
 import SkeletonDetails from '../Skeleton/Details';
 import { formatCurrency, durationInHours } from '../utils';
+import LinkedCameraOutlinedIcon from '@material-ui/icons/LinkedCameraOutlined';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   cardMedia: {
     height: '400px',
+  },
+  cardEmpty: {
+    width: '100%',
+    height: '400px',
+    backgroundColor: theme.palette.text.secondary,
+    borderRadius: '4px',
+    opacity: 0.5,
   },
 }));
 
@@ -76,11 +84,16 @@ export default function MovieList() {
         <Grid item xs={12} sm={6} md={3}>
           <Zoom in timeout={600}>
             <>
-              <CardMedia
-                className={classes.cardMedia}
-                image={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
-                title={movieDetails.title}
-              />
+              {movieDetails.poster_path ? (
+                <CardMedia
+                  className={classes.cardMedia}
+                  image={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
+                  title={movieDetails.title}
+                />
+              ) : (
+                <LinkedCameraOutlinedIcon className={classes.cardEmpty} />
+              )}
+
               {matches && (
                 <Box my={3} fontStyle="italic">
                   <Typography>{movieDetails.tagline}</Typography>
@@ -210,18 +223,29 @@ export default function MovieList() {
           </Box>
         </Grid>
       </Grid>
-      <Grid>
-        <Cast list={castList} />
-      </Grid>
-      <Divider variant="middle" />
-      <Box my={3}>
-        <Typography variant="h6" component="h2">
-          Recommendations
-        </Typography>
-      </Box>
-      <Grid container spacing={matches ? 2 : 1}>
-        <MovieItems moviesList={recommendations} genres={genres} />
-      </Grid>
+      {castList.length > 0 && (
+        <Box mt={3}>
+          <Divider variant="middle" />
+          <Grid>
+            <Cast list={castList} />
+          </Grid>
+        </Box>
+      )}
+      {recommendations.length > 0 && (
+        <>
+          <Box my={3}>
+            <Divider variant="middle" />
+            <Box mt={3}>
+              <Typography variant="h6" component="h2">
+                Recommendations
+              </Typography>
+            </Box>
+          </Box>
+          <Grid container spacing={matches ? 2 : 1}>
+            <MovieItems moviesList={recommendations} genres={genres} />
+          </Grid>
+        </>
+      )}
     </div>
   );
 }

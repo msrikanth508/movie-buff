@@ -89,7 +89,14 @@ export default function () {
             {/* <LanguageSelect lang={lang} setAppLanguage={setAppLanguage} /> */}
           </Toolbar>
         </Container>
+
+        {!matches && (
+          <Container disableGutters>
+            <Search />
+          </Container>
+        )}
       </AppBar>
+
       {showDrawer && <LeftDrawer toggleDrawer={toggleDrawer} />}
     </div>
   );

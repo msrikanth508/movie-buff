@@ -11,7 +11,10 @@ import Footer from './components/Footer';
 const useStyles = makeStyles((theme) => ({
   main: {
     position: 'relative',
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(10),
+    [theme.breakpoints.up('md')]: {
+      marginTop: theme.spacing(8),
+    },
   },
   grid: {
     paddingTop: theme.spacing(4),
