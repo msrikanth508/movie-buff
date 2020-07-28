@@ -95,4 +95,13 @@ router.get('/trending', async (req, res, next) => {
   }
 });
 
+router.get('/videos/:id', async (req, res, next) => {
+  try {
+    const data = await tvTmdb.videos(req.query, req.params.id);
+    res.json(data);
+  } catch (e) {
+    res.send(e);
+    next();
+  }
+});
 export default router;

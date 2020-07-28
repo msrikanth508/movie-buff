@@ -40,6 +40,9 @@ export class MoviesTmdb {
   trending(params) {
     return tmdbData.get(this.paths.trending, params);
   }
+  videos(params, movieId) {
+    return tmdbData.get(`/movie/${movieId}/videos`, params);
+  }
 }
 
 export class TVTmdb {
@@ -81,6 +84,9 @@ export class TVTmdb {
   }
   trending(params) {
     return tmdbData.get(this.paths.trending, params);
+  }
+  videos(params, movieId) {
+    return tmdbData.get(`/tv/${movieId}/videos`, params);
   }
 }
 
