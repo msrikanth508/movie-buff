@@ -30,7 +30,7 @@ export default function MovieList({ type }) {
         },
       });
 
-      setData(results.slice(0, 12));
+      setData((results || []).slice(0, 12));
     }
 
     getData();

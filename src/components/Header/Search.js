@@ -13,22 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import LinkedCameraOutlinedIcon from '@material-ui/icons/LinkedCameraOutlined';
 import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
-
-function debounce(callback, delay) {
-  var timer = null;
-  var self = this;
-  console.log(this);
-  return function () {
-    if (timer) return;
-    var args = arguments;
-
-    timer = setTimeout(() => {
-      console.log('args', args, self);
-      callback.apply(self, args);
-      clearTimeout(timer);
-    }, delay);
-  };
-}
+import debounce from 'lodash.debounce';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -86,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
   /* Styles applied to the `listbox` component. */
   listbox: {
-    maxHeight: '40vh',
+    maxHeight: '50vh',
     overflow: 'auto',
     '& > a': {
       color: 'inherit',
@@ -146,8 +131,11 @@ export default function () {
     }
   }
 
+  const fetchData = debounce(getSearchData, 600);
+
   const handleChange = (event) => {
-    getSearchData(event.target.value);
+    const query = event.target.value;
+    fetchData(query);
   };
 
   function handleFocus(event) {
@@ -156,10 +144,12 @@ export default function () {
       setOpen(true);
     }
   }
+
   function handleBlur() {
     setOpen(false);
     setAnchorEl(null);
   }
+
   return (
     <>
       <div className={classes.search}>
