@@ -70,21 +70,24 @@ const getGenreNames = (genresList, ids) =>
     .slice(0, 3)
     .join(', ');
 
-export default function MovieItems({ moviesList, genres }) {
+export default function List({ items, genres, type }) {
   const classes = useStyles();
 
   return (
     <>
-      {moviesList.map((movie) => (
-        <Grid item key={movie.id} xs={6} sm={4} md={2}>
-          <Link to={`/movie/details/${movie.id}`} className={classes.link}>
+      {items.map((item) => (
+        <Grid item key={item.id} xs={6} sm={4} md={2}>
+          <Link
+            to={`/${type === 'movies' ? 'movie' : 'tv'}/details/${item.id}`}
+            className={classes.link}
+          >
             <Card className={classes.card}>
               <Zoom in timeout={500}>
-                {movie.poster_path ? (
+                {item.poster_path ? (
                   <CardMedia
                     className={classes.cardMedia}
-                    image={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-                    title={movie.title}
+                    image={`https://image.tmdb.org/t/p/w300/${item.poster_path}`}
+                    title={item.title || item.name}
                   />
                 ) : (
                   <LinkedCameraOutlinedIcon className={classes.cardEmpty} />
@@ -97,18 +100,18 @@ export default function MovieItems({ moviesList, genres }) {
                       variant="h6"
                       component="h2"
                       className={classes.ellipsis}
-                      title={movie.title}
+                      title={item.title || item.name}
                     >
-                      {movie.title}
+                      {item.title || item.name}
                     </Typography>
                     <Box component="p" m={0} mt={1} color="textSecondary">
-                      {genres && getGenreNames(genres, movie.genre_ids)}
+                      {genres && getGenreNames(genres, item.genre_ids)}
                     </Box>
                   </div>
                 </Box>
               </CardContent>
               <Box className={classes.rating}>
-                {movie.vote_average.toFixed(1)}
+                {item.vote_average.toFixed(1)}
               </Box>
             </Card>
           </Link>

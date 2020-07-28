@@ -8,7 +8,7 @@ import { useTheme } from '@material-ui/core/styles';
 
 import { AppContext } from '../../Providers';
 import axios from '../../data';
-import MovieItems from './MovieList';
+import List from '../List';
 import SkeletonList from '../Skeleton/List';
 
 const useStyles = makeStyles((theme) => ({
@@ -119,14 +119,14 @@ export default function MovieList(props) {
         </ButtonGroup>
       </Grid>
       <Grid container spacing={matches ? 2 : 1}>
-        <MovieItems moviesList={moviesList} genres={genres} />
+        <List items={moviesList} genres={genres} type="movies" />
       </Grid>
       <Grid container direction="row" justify="center" alignItems="center">
         <Pagination
           page={pageNumber}
           count={totalPages}
           color="primary"
-          size="large"
+          size={matches ? 'large' : 'small'}
           onChange={handlePageChange}
           className={classes.pagination}
         />

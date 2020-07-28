@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '30ch',
     },
+    fontStyle: 'italic',
   },
   paper: {
     ...theme.typography.body1,
@@ -189,6 +190,7 @@ export default function () {
                         ? `/tv/details/${option.id}`
                         : `/movie/details/${option.id}`
                     }
+                    key={option.id}
                   >
                     <ListItem key={option.id} button>
                       <ListItemIcon>

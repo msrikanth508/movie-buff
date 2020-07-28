@@ -5,9 +5,8 @@ import { useTheme } from '@material-ui/core/styles';
 
 import { AppContext } from '../../Providers';
 import axios from '../../data';
-import MovieItems from '../Movies/MovieList';
-import TVItems from '../TV/TVItems';
 import SkeletonList from '../Skeleton/List';
+import List from '../List';
 
 export default function MovieList({ type }) {
   const theme = useTheme();
@@ -15,6 +14,7 @@ export default function MovieList({ type }) {
 
   const [data, setData] = React.useState([]);
   const url = type === 'tv' ? '/tv/trending' : '/movies/trending';
+
   const {
     tv: { genres: tvGenres },
     movies: { genres: movieGenres },
@@ -44,9 +44,9 @@ export default function MovieList({ type }) {
     <>
       <Grid container spacing={matches ? 2 : 1}>
         {type === 'movie' && (
-          <MovieItems moviesList={data} genres={movieGenres} />
+          <List items={data} genres={movieGenres} type="movies" />
         )}
-        {type === 'tv' && <TVItems tvList={data} genres={tvGenres} />}
+        {type === 'tv' && <List items={data} genres={tvGenres} type="tv" />}
       </Grid>
     </>
   );

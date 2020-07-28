@@ -104,36 +104,34 @@ export default function (props) {
         Cast
       </Typography>
       <Slider {...settings}>
-        {props.list.map((list) => {
-          return (
-            <Box p={matches ? 2 : 1}>
-              <Card className={classes.cardRoot}>
-                {list.profile_path ? (
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={`https://image.tmdb.org/t/p/w185/${list.profile_path}`}
-                    title={list.name}
-                  />
-                ) : (
-                  <PersonIcon className={classes.cardEmpty} />
-                )}
+        {props.list.map((list) => (
+          <Box p={matches ? 2 : 1} key={list.id}>
+            <Card className={classes.cardRoot}>
+              {list.profile_path ? (
+                <CardMedia
+                  className={classes.cardMedia}
+                  image={`https://image.tmdb.org/t/p/w185/${list.profile_path}`}
+                  title={list.name}
+                />
+              ) : (
+                <PersonIcon className={classes.cardEmpty} />
+              )}
 
-                <CardContent className={classes.cardContent}>
-                  <Typography variant="subtitle1" component="h2">
-                    {list.name}
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    component="h2"
-                    color="textSecondary"
-                  >
-                    {list.character}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Box>
-          );
-        })}
+              <CardContent className={classes.cardContent}>
+                <Typography variant="subtitle1" component="h2">
+                  {list.name}
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+                  component="h2"
+                  color="textSecondary"
+                >
+                  {list.character}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
+        ))}
       </Slider>
     </Box>
   );

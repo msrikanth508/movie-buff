@@ -8,7 +8,7 @@ import { useTheme } from '@material-ui/core/styles';
 
 import { AppContext } from '../../Providers';
 import axios from '../../data';
-import TVItems from './TVItems';
+import List from '../List';
 import SkeletonList from '../Skeleton/List';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +39,7 @@ const btns = [
   },
 ];
 
-export default function MovieList(props) {
+export default function TvList(props) {
   const params = useParams();
   const pageNumber = parseInt(params.pageNumber || 1, 10);
   const movieType = params.type || 'trending';
@@ -119,14 +119,14 @@ export default function MovieList(props) {
         </ButtonGroup>
       </Grid>
       <Grid container spacing={matches ? 2 : 1}>
-        <TVItems tvList={moviesList} genres={genres} />
+        <List items={moviesList} genres={genres} type="tv" />
       </Grid>
       <Grid container direction="row" justify="center" alignItems="center">
         <Pagination
           page={pageNumber}
           count={totalPages}
           color="primary"
-          size="large"
+          size={matches ? 'large' : 'small'}
           onChange={handlePageChange}
           className={classes.pagination}
         />
