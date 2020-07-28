@@ -1,23 +1,28 @@
 # movie-buff
 
-Movie buff site
+The application uses open source data provided by [TMDB](https://www.themoviedb.org/)
+. The application has been hosted on Netlify.
 
 # client
 
-### dev
+https://timepazz.netlify.app/
 
-npm run start
+#### dev
 
-### Prod
+> npm run start
 
-npm run build
+#### Prod
+
+> npm run build:client
 
 # server
 
-### Dev
+https://moviez-buff.netlify.app
+
+#### Dev
 
 > npm run watch:dev
 
-### Prod
+#### Prod
 
 > npm run prod

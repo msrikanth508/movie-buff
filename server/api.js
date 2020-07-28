@@ -5,6 +5,7 @@ import serverless from 'serverless-http';
 import cors from 'cors';
 import movieRoutes from './routes/movies';
 import tvRoutes from './routes/tv';
+import generalRoutes from './routes/general';
 
 const app = express();
 
@@ -40,11 +41,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use('/.netlify/functions/api/', generalRoutes);
 app.use('/.netlify/functions/api/movies/', movieRoutes);
 app.use('/.netlify/functions/api/tv/', tvRoutes);
 
 module.exports = app;
 module.exports.handler = serverless(app);
-// app.handler = serverless(app);
-
-// export default app;
