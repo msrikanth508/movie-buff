@@ -69,7 +69,7 @@ export default function MovieList({ type, id, genres }) {
   const [details, setDetails] = useState(null);
   const [castList, setCastList] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
-  const [trailers, setTrailers] = useState([]);
+  const [trailers, setTrailers] = useState(null);
   const [showTrailer, setShowTrailer] = useState(false);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
@@ -99,7 +99,7 @@ export default function MovieList({ type, id, genres }) {
         setTrailers(
           trailersData.filter(
             (_) => _.site === 'YouTube' && _.type === 'Trailer'
-          )
+          )[0]
         );
       } else {
         setTrailers([]);
@@ -134,7 +134,7 @@ export default function MovieList({ type, id, genres }) {
                     image={`https://image.tmdb.org/t/p/w500/${details.poster_path}`}
                     title={details.title || details.name}
                   />
-                  {trailers.length > 0 && (
+                  {trailers && (
                     <PlayCircleOutlineOutlinedIcon
                       className={classes.play}
                       onClick={handleShowHideTrailer}
@@ -350,7 +350,7 @@ export default function MovieList({ type, id, genres }) {
           }}
         >
           <Fade in>
-            <YouTube id={trailers[0].key} />
+            <YouTube id={trailers.key} title={trailers.name} />
           </Fade>
         </Modal>
       )}

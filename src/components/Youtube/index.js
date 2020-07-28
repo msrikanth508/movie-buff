@@ -14,6 +14,7 @@ export default function YouTubeEmbed(props) {
       {...props}
     >
       <iframe
+        title={props.title}
         src={`https://www.youtube.com/embed/${props.id}`}
         frameBorder="0"
         allow="autoplay; encrypted-media"
