@@ -36,7 +36,7 @@ export default function () {
         <Typography variant="body2" color="textSecondary" align="center">
           {'Copyright © '}
           <Link color="inherit" href="https://material-ui.com/">
-            TimePass
+            TimePazz
           </Link>{' '}
           {new Date().getFullYear()}
           {'.'}

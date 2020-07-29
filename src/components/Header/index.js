@@ -75,7 +75,7 @@ export default function () {
                 alt="logo"
               />
               <Typography variant="h6" color="inherit" noWrap>
-                Time Pass
+                TimePazz
               </Typography>
             </Link>
             {matches && (
