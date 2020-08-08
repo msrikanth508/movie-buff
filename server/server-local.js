@@ -1,8 +1,10 @@
 import express from 'express';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import indexRouter from './routes/index';
+import cors from 'cors';
+import movieRoutes from './routes/movies';
+import tvRoutes from './routes/tv';
+import generalRoutes from './routes/general';
 
 const app = express();
 
@@ -11,6 +13,8 @@ const params = {
   language: 'en-EN',
   region: 'DE',
 };
+
+app.use(cors());
 
 const getQueryParams = (query) =>
   Object.keys(params).reduce((acc, key) => {
@@ -36,6 +40,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api', indexRouter);
+app.use('/api/', generalRoutes);
+app.use('/api/movies/', movieRoutes);
+app.use('/api/tv/', tvRoutes);
 
 export default app;
